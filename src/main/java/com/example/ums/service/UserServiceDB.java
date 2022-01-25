@@ -45,7 +45,9 @@ public class UserServiceDB implements UserServiceInterface {
 
     @Override
     public User create(User user) {
-        return userRepo.save(user);
+        List<User> listUtents= userRepo.findByEmail(user.getEmail());
+        if(!listUtents.isEmpty())throw new RuntimeException();
+        else return userRepo.save(user);
     }
 
     @Override
@@ -84,4 +86,5 @@ public class UserServiceDB implements UserServiceInterface {
         uDTO.setSurname(u.getSurname());
         return uDTO;
     }
+
 }
