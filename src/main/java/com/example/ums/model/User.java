@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.util.Objects;
+import java.util.UUID;
+
 public class User {
     @Id
     private String id;
@@ -14,6 +16,16 @@ public class User {
     private String surname;
     private String email;
     private String password;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    private String token;
 
 
     public User() {

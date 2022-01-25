@@ -14,6 +14,7 @@ import com.example.ums.service.UmsException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service("DB")
 public class UserServiceDB implements UserServiceInterface {
@@ -33,8 +34,10 @@ public class UserServiceDB implements UserServiceInterface {
     @Override
     public List<User> getUser(String email, String password)throws UmsException{
         try{
-            List<User> user=userRepo.findByEmail(email);
-            return user;
+            List<User> users=userRepo.findByEmail(email);
+            UUID uuid=UUID.randomUUID();
+            users.get(0).setToken(uuid.toString());
+            return users;
         }catch (Exception e){
             throw new UmsException(HttpStatus.NOT_FOUND,"fottiti");
         }
@@ -61,15 +64,13 @@ public class UserServiceDB implements UserServiceInterface {
     }
 
     @Override
-    public Boolean delete(String id) {
-        Optional<User> foundUser = userRepo.findById(id);
+    public Boolean delete(String email) {
+        List<User> foundUser = userRepo.findByEmail(email);
 
         if (foundUser.isEmpty()) {
             return false;
-
         }
-
-        userRepo.delete(foundUser.get());
+        userRepo.delete(foundUser.get(0));
 
         return true;
     }
