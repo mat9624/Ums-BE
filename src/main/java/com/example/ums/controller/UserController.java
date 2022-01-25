@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")
+@CrossOrigin(origins = "http://localhost:4200")
 //@Produces(MediaType.APPLICATION_JSON)
 @Consumes()
 public class UserController {
@@ -79,8 +79,5 @@ public class UserController {
         String password=creds[1];
         return userService.getUser(email,password);
     }
-
-
-
 
 }
