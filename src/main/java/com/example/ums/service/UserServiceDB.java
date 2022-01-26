@@ -38,16 +38,15 @@ public class UserServiceDB implements UserServiceInterface {
     @Override
     public List<User> getUser(String email, String password)throws UmsException{
         try{
+
             List<User> users=userRepo.findByEmail(email);
-            UUID uuid=UUID.randomUUID();
-            users.get(0).setToken(uuid.toString());
-            userRepo.save(users.get(0));
-            return users;
-            List<User> user=userRepo.findByEmail(email);
             UUID uuid = UUID.randomUUID();
-            user.get(0).setToken(uuid.toString());
-            boolean isPasswordMatches = passwordEncoder.matches(password,user.get(0).getPassword());
-            if(isPasswordMatches)return user;
+            users.get(0).setToken(uuid.toString());
+            boolean isPasswordMatches = passwordEncoder.matches(password,users.get(0).getPassword());
+            if(isPasswordMatches){
+                userRepo.save(users.get(0));
+                return users;
+            }
             else throw new UmsException(HttpStatus.NOT_FOUND,"password errata");
         }catch (Exception e){
             throw new UmsException(HttpStatus.NOT_FOUND,"fottiti");

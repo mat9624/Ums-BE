@@ -18,7 +18,6 @@ public class User {
     private String password;
     private String token;
 
-    private String token;
 
     public void setToken(String token) {
         this.token = token;
@@ -99,11 +98,4 @@ public class User {
         return Objects.hash(id, name, surname, email, password);
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }
