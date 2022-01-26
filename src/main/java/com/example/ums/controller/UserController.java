@@ -62,10 +62,10 @@ public class UserController {
         return updatedUser.get();
     }
 
-    @RequestMapping(value="/ums/delete/{id}", method=RequestMethod.DELETE)
-    public void delete(@PathVariable String id){
+    @RequestMapping(value="/ums/delete/{email}", method=RequestMethod.DELETE)
+    public void delete(@PathVariable String email){
 
-        boolean isDeleted=userService.delete(id);
+        boolean isDeleted=userService.delete(email);
 
         if(!isDeleted){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
@@ -77,7 +77,9 @@ public class UserController {
         String[] creds= cred.split("-");
         String email=creds[0];
         String password=creds[1];
+
         return userService.getUser(email,password);
     }
 
 }
+

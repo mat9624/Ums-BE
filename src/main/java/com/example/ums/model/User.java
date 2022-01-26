@@ -14,6 +14,7 @@ public class User {
     private String surname;
     private String email;
     private String password;
+    private String token;
 
 
     public User() {
@@ -82,5 +83,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, surname, email, password);
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
