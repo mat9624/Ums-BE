@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.ums.service.UmsException;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,6 +22,8 @@ import java.util.UUID;
 public class UserServiceDB implements UserServiceInterface {
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -40,6 +43,12 @@ public class UserServiceDB implements UserServiceInterface {
             users.get(0).setToken(uuid.toString());
             userRepo.save(users.get(0));
             return users;
+            List<User> user=userRepo.findByEmail(email);
+            UUID uuid = UUID.randomUUID();
+            user.get(0).setToken(uuid.toString());
+            boolean isPasswordMatches = passwordEncoder.matches(password,user.get(0).getPassword());
+            if(isPasswordMatches)return user;
+            else throw new UmsException(HttpStatus.NOT_FOUND,"password errata");
         }catch (Exception e){
             throw new UmsException(HttpStatus.NOT_FOUND,"fottiti");
         }
@@ -49,7 +58,11 @@ public class UserServiceDB implements UserServiceInterface {
     public User create(User user) {
         List<User> listUtents= userRepo.findByEmail(user.getEmail());
         if(!listUtents.isEmpty())throw new RuntimeException();
-        else return userRepo.save(user);
+        else {
+            String pss = passwordEncoder.encode(user.getPassword());
+            user.setPassword(pss);
+            return userRepo.save(user);
+        }
     }
 
     @Override
@@ -72,6 +85,7 @@ public class UserServiceDB implements UserServiceInterface {
         List<User> foundUser = userRepo.findByEmail(email);
         if (foundUser.isEmpty()) {
             return false;
+
         }
         userRepo.delete(foundUser.get(0));
         return true;

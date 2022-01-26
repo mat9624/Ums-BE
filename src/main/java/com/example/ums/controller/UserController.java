@@ -77,7 +77,9 @@ public class UserController {
         String[] creds= cred.split("-");
         String email=creds[0];
         String password=creds[1];
+
         return userService.getUser(email,password);
     }
 
 }
+
