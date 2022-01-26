@@ -17,6 +17,8 @@ public class User {
     private String email;
     private String password;
 
+    private String token;
+
     public void setToken(String token) {
         this.token = token;
     }
@@ -25,7 +27,7 @@ public class User {
         return token;
     }
 
-    private String token;
+
 
 
     public User() {

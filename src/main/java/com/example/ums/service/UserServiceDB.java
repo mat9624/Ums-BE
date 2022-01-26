@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.example.ums.service.UmsException;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class UserServiceDB implements UserServiceInterface {
             List<User> users=userRepo.findByEmail(email);
             UUID uuid=UUID.randomUUID();
             users.get(0).setToken(uuid.toString());
+            userRepo.save(users.get(0));
             return users;
         }catch (Exception e){
             throw new UmsException(HttpStatus.NOT_FOUND,"fottiti");
@@ -68,12 +70,10 @@ public class UserServiceDB implements UserServiceInterface {
     @Override
     public Boolean delete(String email) {
         List<User> foundUser = userRepo.findByEmail(email);
-
         if (foundUser.isEmpty()) {
             return false;
         }
         userRepo.delete(foundUser.get(0));
-
         return true;
     }
     @Override
@@ -86,5 +86,13 @@ public class UserServiceDB implements UserServiceInterface {
         uDTO.setSurname(u.getSurname());
         return uDTO;
     }
+
+    public Boolean checkAuth(String auth){
+        List<User> userAuth=userRepo.findByToken(auth);
+        return !userAuth.isEmpty();
+    }
+
+
+
 
 }
