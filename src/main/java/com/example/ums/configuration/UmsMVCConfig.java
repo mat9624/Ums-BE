@@ -1,5 +1,6 @@
-package com.example.ums.service.interceptor;
+package com.example.ums.configuration;
 
+import com.example.ums.service.interceptor.UmsInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,6 +13,6 @@ public class UmsMVCConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(umsInterceptor).addPathPatterns("/ums/delete/{email}");
+        registry.addInterceptor(umsInterceptor).addPathPatterns("/ums/delete");
     }
 }

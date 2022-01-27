@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8100")
-//@Produces(MediaType.APPLICATION_JSON)
+@CrossOrigin(origins = "*")
 @Consumes()
 public class UserController {
     @Autowired

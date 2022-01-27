@@ -3,6 +3,7 @@ package com.example.ums.service;
 import com.example.ums.DTO.UserDTO;
 import com.example.ums.UserRepository.UserRepository;
 import com.example.ums.model.User;
+import com.example.ums.service.cache.CacheToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -24,6 +25,8 @@ public class UserServiceDB implements UserServiceInterface {
     private UserRepository userRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CacheToken cacheToken;
 
 
     @Override
@@ -41,10 +44,12 @@ public class UserServiceDB implements UserServiceInterface {
 
             List<User> users=userRepo.findByEmail(email);
             UUID uuid = UUID.randomUUID();
-            users.get(0).setToken(uuid.toString());
+            String token=uuid.toString();
+            users.get(0).setToken(token);
             boolean isPasswordMatches = passwordEncoder.matches(password,users.get(0).getPassword());
             if(isPasswordMatches){
                 userRepo.save(users.get(0));
+                cacheToken.insert(users.get(0),token);
                 return users;
             }
             else throw new UmsException(HttpStatus.NOT_FOUND,"password errata");
@@ -101,8 +106,7 @@ public class UserServiceDB implements UserServiceInterface {
     }
 
     public Boolean checkAuth(String auth){
-        List<User> userAuth=userRepo.findByToken(auth);
-        return !userAuth.isEmpty();
+        return cacheToken.tokenFound(auth);
     }
 
 
