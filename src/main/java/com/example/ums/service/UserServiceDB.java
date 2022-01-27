@@ -3,7 +3,7 @@ package com.example.ums.service;
 import com.example.ums.DTO.UserDTO;
 import com.example.ums.UserRepository.UserRepository;
 import com.example.ums.service.cache.CacheToken;
-import com.example.ums.service.cache.model.User;
+import com.example.ums.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,8 +56,8 @@ public class UserServiceDB implements UserServiceInterface {
 
     @Override
     public User create(User user) {
-        List<User> listUtents = userRepo.findByEmail(user.getEmail());
-        if (!listUtents.isEmpty()) throw new RuntimeException();
+        List<User> getUsers = userRepo.findByEmail(user.getEmail());
+        if (!getUsers.isEmpty()) throw new RuntimeException();
         else {
             String pss = passwordEncoder.encode(user.getPassword());
             user.setPassword(pss);

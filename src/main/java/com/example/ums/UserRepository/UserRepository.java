@@ -1,6 +1,6 @@
 package com.example.ums.UserRepository;
 
-import com.example.ums.service.cache.model.User;
+import com.example.ums.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

@@ -1,12 +1,16 @@
 package com.example.ums.controller;
 
+import com.example.ums.command.DeleteCommand;
+import com.example.ums.command.LoginCommand;
+import com.example.ums.command.RegisterCommand;
 import com.example.ums.service.UserServiceInterface;
-import com.example.ums.service.cache.model.User;
+import com.example.ums.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 
@@ -25,57 +29,53 @@ public class UserController {
     }
 
     @RequestMapping("/ums")
-    public Iterable<User> getAll(){
+    public Iterable<User> getAll() {
 
         return userService.getAll();
 
     }
 
     @RequestMapping("/ums/{id}")
-    public User getById(@PathVariable String id){
-        Optional<User> foundUser= userService.getById(id);
+    public User getById(@PathVariable String id) {
+        Optional<User> foundUser = userService.getById(id);
 
-        if(foundUser.isEmpty()){
+        if (foundUser.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
 
         return foundUser.get();
     }
 
-    @RequestMapping(value="/ums/create", method = RequestMethod.POST)
-    public User create(@Valid @RequestBody User user){
+    @PostMapping("/ums/create")
+    public User create(@RequestBody RegisterCommand registerCmd) {
+        User user = new User(registerCmd.getNome(), registerCmd.getCognome(), registerCmd.getEmail(), registerCmd.getPassword());
         return userService.create(user);
     }
 
-    @RequestMapping(value="/ums/update/{id})", method= RequestMethod.PUT)
-    public User update(@Valid @PathVariable String id,@RequestBody User user){
+    @RequestMapping(value = "/ums/update/{id})", method = RequestMethod.PUT)
+    public User update(@Valid @PathVariable String id, @RequestBody User user) {
 
-        Optional<User> updatedUser= userService.update(user);
+        Optional<User> updatedUser = userService.update(user);
 
-        if(updatedUser.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
+        if (updatedUser.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 
         }
         return updatedUser.get();
     }
 
-    @RequestMapping(value="/ums/delete/{email}", method=RequestMethod.DELETE)
-    public void delete(@PathVariable String email){
+    @PostMapping("/ums/delete")
+    public void delete(@RequestBody DeleteCommand deleteCmd) {
 
-        boolean isDeleted=userService.delete(email);
-
-        if(!isDeleted){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
+        boolean isDeleted = userService.delete(deleteCmd.getEmail());
+        if (!isDeleted) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
 
-    @GetMapping("/ums/getUser/{cred}")
-    public List<User> getUser(@PathVariable String cred){
-        String[] creds= cred.split("-");
-        String email=creds[0];
-        String password=creds[1];
-
-        return userService.getUser(email,password);
+    @PostMapping("/ums/getUser")
+    public List<User> getUser(@RequestBody LoginCommand loginCmd) {
+        return userService.getUser(loginCmd.getEmail(), loginCmd.getPassword());
     }
 
 }

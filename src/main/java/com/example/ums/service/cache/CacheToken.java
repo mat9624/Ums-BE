@@ -1,7 +1,7 @@
 package com.example.ums.service.cache;
 
 import com.example.ums.UserRepository.UserRepository;
-import com.example.ums.service.cache.model.User;
+import com.example.ums.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

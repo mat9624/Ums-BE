@@ -1,9 +1,11 @@
-package com.example.ums.service.cache.model;
+package com.example.ums.model;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Entity;
 import java.util.Objects;
-
+@AllArgsConstructor
 public class User {
     @Id
     private String id;
@@ -12,6 +14,12 @@ public class User {
     private String email;
     private String password;
     private String token;
+    public User(String name, String surname, String email, String password) {
+        this.name=name;
+        this.surname=surname;
+        this.email=email;
+        this.password=password;
+    }
 
 
     public void setToken(String token) {
