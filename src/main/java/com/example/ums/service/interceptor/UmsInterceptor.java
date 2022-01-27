@@ -21,12 +21,14 @@ public class UmsInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        //FIXME
         System.out.println(System.nanoTime() / 1000000); // test velocità
         Boolean requestValidation = false;
         try {
             String auth = request.getHeader("authorization");
             requestValidation = userServiceDB.checkAuth(auth);
             test.runGC();   // avvio test memoria
+            //FIXME
             System.out.println(System.nanoTime() / 1000000);  // test velocità
             if (!requestValidation) {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());

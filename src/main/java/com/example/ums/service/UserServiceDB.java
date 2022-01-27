@@ -67,6 +67,7 @@ public class UserServiceDB implements UserServiceInterface {
 
     @Override
     public Optional<User> update(User user) {
+        //FIXME l'entità del db non viene resa persistente
         Optional<User> foundUser = userRepo.findById(user.getId());
 
         if (foundUser.isEmpty()) {
