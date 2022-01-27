@@ -25,7 +25,7 @@ public class UmsInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         Boolean requestValidation=false;
         try{
-            String auth= request.getHeader("Authorization");
+            String auth= request.getHeader("authorization");
             requestValidation=userServiceDB.checkAuth(auth);
             if(!requestValidation){
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
