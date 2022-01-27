@@ -1,16 +1,14 @@
 package com.example.ums.controller;
 
 import com.example.ums.service.UserServiceInterface;
-import com.example.ums.model.User;
+import com.example.ums.service.cache.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
 
 import java.util.List;
 import java.util.Optional;

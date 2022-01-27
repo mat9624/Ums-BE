@@ -1,8 +1,7 @@
 package com.example.ums.service;
 
 import com.example.ums.DTO.UserDTO;
-import com.example.ums.model.User;
-import org.springframework.web.bind.annotation.RequestHeader;
+import com.example.ums.service.cache.model.User;
 
 import java.util.List;
 import java.util.Optional;

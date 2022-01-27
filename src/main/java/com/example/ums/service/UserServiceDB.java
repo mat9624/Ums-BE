@@ -2,19 +2,14 @@ package com.example.ums.service;
 
 import com.example.ums.DTO.UserDTO;
 import com.example.ums.UserRepository.UserRepository;
-import com.example.ums.model.User;
 import com.example.ums.service.cache.CacheToken;
+import com.example.ums.service.cache.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.ums.service.UmsException;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,30 +33,31 @@ public class UserServiceDB implements UserServiceInterface {
     public Optional<User> getById(String id) {
         return userRepo.findById(id);
     }
-    @Override
-    public List<User> getUser(String email, String password)throws UmsException{
-        try{
 
-            List<User> users=userRepo.findByEmail(email);
+    @Override
+    public List<User> getUser(String email, String password) throws UmsException {
+        try {
+
+            List<User> users = userRepo.findByEmail(email);
             UUID uuid = UUID.randomUUID();
-            String token=uuid.toString();
+            String token = uuid.toString();
             users.get(0).setToken(token);
-            boolean isPasswordMatches = passwordEncoder.matches(password,users.get(0).getPassword());
-            if(isPasswordMatches){
+            boolean isPasswordMatches = passwordEncoder.matches(password, users.get(0).getPassword());
+            if (isPasswordMatches) {
                 userRepo.save(users.get(0));
-                cacheToken.insert(users.get(0),token);
+                cacheToken.insert(users.get(0), token);
+
                 return users;
-            }
-            else throw new UmsException(HttpStatus.NOT_FOUND,"password errata");
-        }catch (Exception e){
-            throw new UmsException(HttpStatus.NOT_FOUND,"fottiti");
+            } else throw new UmsException(HttpStatus.NOT_FOUND, "password errata");
+        } catch (Exception e) {
+            throw new UmsException(HttpStatus.NOT_FOUND, "fottiti");
         }
     }
 
     @Override
     public User create(User user) {
-        List<User> listUtents= userRepo.findByEmail(user.getEmail());
-        if(!listUtents.isEmpty())throw new RuntimeException();
+        List<User> listUtents = userRepo.findByEmail(user.getEmail());
+        if (!listUtents.isEmpty()) throw new RuntimeException();
         else {
             String pss = passwordEncoder.encode(user.getPassword());
             user.setPassword(pss);
@@ -94,8 +90,9 @@ public class UserServiceDB implements UserServiceInterface {
         userRepo.delete(foundUser.get(0));
         return true;
     }
+
     @Override
-    public UserDTO convertToDTO(User u){
+    public UserDTO convertToDTO(User u) {
         UserDTO uDTO = new UserDTO();
         uDTO.setId(u.getId());
         uDTO.setEmail(u.getEmail());
@@ -105,11 +102,9 @@ public class UserServiceDB implements UserServiceInterface {
         return uDTO;
     }
 
-    public Boolean checkAuth(String auth){
+    public Boolean checkAuth(String auth) {
         return cacheToken.tokenFound(auth);
     }
-
-
 
 
 }
