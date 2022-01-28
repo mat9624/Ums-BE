@@ -47,14 +47,20 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-crypto</artifactId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config-->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.auth0/auth0-spring-security-api -->
+        <!-- https://mvnrepository.com/artifact/com.auth0/auth0-spring-security-api-->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>auth0-spring-security-api</artifactId>

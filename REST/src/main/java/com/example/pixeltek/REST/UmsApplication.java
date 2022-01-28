@@ -1,13 +1,16 @@
-package com.example.pixeltek;
+package com.example.pixeltek.REST;
 
-import com.example.pixeltek.configuration.WebConfiguration;
+
+import com.example.pixeltek.REST.configuration.WebConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 @Import({
         WebConfiguration.class})
 @SpringBootApplication
+@ComponentScan("com.example.pixeltek")
 public class UmsApplication {
 
     public static void main(String[] args) {

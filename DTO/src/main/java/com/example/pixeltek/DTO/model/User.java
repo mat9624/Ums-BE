@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
+
 public class User {
     @Id
     private String id;

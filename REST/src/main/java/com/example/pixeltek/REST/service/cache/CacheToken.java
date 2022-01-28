@@ -1,6 +1,7 @@
 package com.example.pixeltek.REST.service.cache;
 
-import com.example.pixeltek.DAO.userRepository.UserRepository;
+import com.example.pixeltek.DAO.repository.UserRepository;
+import com.example.pixeltek.DAO.repository.UserRepositoryI;
 import com.example.pixeltek.DTO.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

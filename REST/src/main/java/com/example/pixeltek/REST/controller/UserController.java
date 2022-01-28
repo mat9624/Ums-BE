@@ -1,7 +1,7 @@
 package com.example.pixeltek.REST.controller;
 
 import com.example.pixeltek.DTO.model.User;
-import com.example.pixeltek.REST.service.UserServiceInterface;
+import com.example.pixeltek.REST.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,7 @@ import java.util.Optional;
 @Consumes()
 public class UserController {
     @Autowired
-    @Qualifier("DB")
-    private UserServiceInterface userService;
+    private UserService userService;
 
     UserController() {
     }

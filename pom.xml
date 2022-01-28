@@ -24,6 +24,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>2.0.0.Final</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-mongodb</artifactId>
                 <version>2.6.3</version>
@@ -50,18 +55,20 @@
                 <artifactId>javaee-api</artifactId>
                 <version>8.0.1</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>2.0.1.Final</version>
-            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
             <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-crypto</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
                 <version>5.6.1</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>5.6.1</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
                 <dependency>
                     <groupId>org.springframework.security</groupId>
@@ -80,7 +87,7 @@
                 <artifactId>mvc-auth-commons</artifactId>
                 <version>1.2.0</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
+<!--            &lt;!&ndash; https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api &ndash;&gt;-->
             <dependency>
                 <groupId>javax.ws.rs</groupId>
                 <artifactId>javax.ws.rs-api</artifactId>

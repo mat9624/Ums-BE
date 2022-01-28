@@ -1,13 +1,11 @@
 package com.example.pixeltek.REST.service;
 
-import com.example.pixeltek.DAO.userRepository.UserRepository;
+import com.example.pixeltek.DAO.repository.UserRepository;
 import com.example.pixeltek.DTO.dto.UserDTO;
 import com.example.pixeltek.DTO.model.User;
 import com.example.pixeltek.REST.service.cache.CacheToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,11 +15,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Configuration
-@ComponentScan("com.example.pixeltek.REST.service")
-public class UserServiceDB implements UserServiceInterface {
+public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository userRepo;
+    private UserRepository userRepositoryI;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -30,25 +26,25 @@ public class UserServiceDB implements UserServiceInterface {
 
     @Override
     public Iterable<User> getAll() {
-        return userRepo.findAll();
+        return userRepositoryI.findAll();
     }
 
     @Override
     public Optional<User> getById(String id) {
-        return userRepo.findById(id);
+        return userRepositoryI.findById(id);
     }
 
     @Override
     public List<User> getUser(String email, String password) throws UmsException {
         try {
 
-            List<User> users = userRepo.findByEmail(email);
+            List<User> users = userRepositoryI.findByEmail(email);
             UUID uuid = UUID.randomUUID();
             String token = uuid.toString();
             users.get(0).setToken(token);
             boolean isPasswordMatches = passwordEncoder.matches(password, users.get(0).getPassword());
             if (isPasswordMatches) {
-                userRepo.save(users.get(0));
+                userRepositoryI.save(users.get(0));
                 cacheToken.insert(users.get(0), token);
 
                 return users;
@@ -60,18 +56,18 @@ public class UserServiceDB implements UserServiceInterface {
 
     @Override
     public User create(User user) {
-        List<User> listUtents = userRepo.findByEmail(user.getEmail());
+        List<User> listUtents = userRepositoryI.findByEmail(user.getEmail());
         if (!listUtents.isEmpty()) throw new RuntimeException();
         else {
             String pss = passwordEncoder.encode(user.getPassword());
             user.setPassword(pss);
-            return userRepo.save(user);
+            return userRepositoryI.save(user);
         }
     }
 
     @Override
     public Optional<User> update(User user) {
-        Optional<User> foundUser = userRepo.findById(user.getId());
+        Optional<User> foundUser = userRepositoryI.findById(user.getId());
 
         if (foundUser.isEmpty()) {
             return Optional.empty();
@@ -86,12 +82,12 @@ public class UserServiceDB implements UserServiceInterface {
 
     @Override
     public Boolean delete(String email) {
-        List<User> foundUser = userRepo.findByEmail(email);
+        List<User> foundUser = userRepositoryI.findByEmail(email);
         if (foundUser.isEmpty()) {
             return false;
 
         }
-        userRepo.delete(foundUser.get(0));
+        userRepositoryI.delete(foundUser.get(0));
         return true;
     }
 
@@ -106,7 +102,6 @@ public class UserServiceDB implements UserServiceInterface {
         return uDTO;
     }
 
-    @Bean
     public Boolean checkAuth(String auth) {
         return cacheToken.tokenFound(auth);
     }

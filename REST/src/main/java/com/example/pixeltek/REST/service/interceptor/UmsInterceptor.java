@@ -1,6 +1,7 @@
 package com.example.pixeltek.REST.service.interceptor;
 
-import com.example.pixeltek.REST.service.UserServiceDB;
+import com.example.pixeltek.REST.UmsApplication;
+import com.example.pixeltek.REST.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UmsInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private UserServiceDB userServiceDB;
+    private UserServiceImpl userServiceImpl;
     @Autowired
     private UmsApplication test; // per misurare utilizzo memoria
 
@@ -23,7 +24,7 @@ public class UmsInterceptor implements HandlerInterceptor {
         Boolean requestValidation = false;
         try {
             String auth = request.getHeader("authorization");
-            requestValidation = userServiceDB.checkAuth(auth);
+            requestValidation = userServiceImpl.checkAuth(auth);
             test.runGC();   // avvio test memoria
             System.out.println(System.nanoTime() / 1000000);  // test velocità
             if (!requestValidation) {
