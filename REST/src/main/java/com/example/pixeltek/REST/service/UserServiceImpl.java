@@ -1,11 +1,10 @@
 package com.example.pixeltek.REST.service;
 
-import com.example.pixeltek.DAO.repository.UserRepository;
+import com.example.pixeltek.DAO.repository.IUserRepository;
 import com.example.pixeltek.DTO.dto.UserDTO;
 import com.example.pixeltek.DTO.model.User;
 import com.example.pixeltek.REST.service.cache.CacheToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository userRepositoryI;
+    private IUserRepository userRepositoryI;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired

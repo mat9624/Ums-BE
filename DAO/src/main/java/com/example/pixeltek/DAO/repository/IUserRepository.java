@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepositoryI extends MongoRepository<User, String> {
+public interface IUserRepository extends MongoRepository<User, String> {
     //@Query("{email :?0}")
     List<User> findByEmail(String email);
     List<User> findByToken(String token);

@@ -1,16 +1,19 @@
 package com.example.pixeltek.REST;
 
 
+import com.example.pixeltek.DAO.repository.IUserRepository;
 import com.example.pixeltek.REST.configuration.WebConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Import({
         WebConfiguration.class})
-@SpringBootApplication
-@ComponentScan("com.example.pixeltek")
+@EnableMongoRepositories(basePackageClasses = IUserRepository.class)
+@SpringBootApplication(scanBasePackages={
+        "com.example.pixeltek", "com.example.pixeltek.DAO.repository"})
 public class UmsApplication {
 
     public static void main(String[] args) {

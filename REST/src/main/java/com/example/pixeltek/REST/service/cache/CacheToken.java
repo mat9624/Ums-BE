@@ -1,7 +1,6 @@
 package com.example.pixeltek.REST.service.cache;
 
-import com.example.pixeltek.DAO.repository.UserRepository;
-import com.example.pixeltek.DAO.repository.UserRepositoryI;
+import com.example.pixeltek.DAO.repository.IUserRepository;
 import com.example.pixeltek.DTO.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import java.util.Map;
 @Component
 public class CacheToken {
     @Autowired
-    UserRepository userRepo;
+    IUserRepository userRepo;
     private Map<User, String> tokens;
 
     public CacheToken() {
