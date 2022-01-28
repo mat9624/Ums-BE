@@ -14,14 +14,4 @@ public class UmsApplication {
         SpringApplication.run(UmsApplication.class, args);
     }
 
-    public void runGC(){ // metodo per test sull'utilizzo della memoria
-        Runtime runtime = Runtime.getRuntime();
-        long memoryMax = runtime.maxMemory();
-        long memoryUsed = runtime.totalMemory() - runtime.freeMemory();
-        double memoryUsedPercent = (memoryUsed * 100.0) / memoryMax;
-        System.out.println("memoryUsedPercent: " + memoryUsedPercent);
-        if (memoryUsedPercent > 90.0)
-            System.gc();
-    }
-
 }

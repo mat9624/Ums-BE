@@ -3,6 +3,7 @@ package com.example.ums.controller;
 import com.example.ums.command.DeleteCommand;
 import com.example.ums.command.LoginCommand;
 import com.example.ums.command.RegisterCommand;
+import com.example.ums.command.UpdateCommand;
 import com.example.ums.service.UserServiceInterface;
 import com.example.ums.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 
@@ -52,16 +54,10 @@ public class UserController {
         return userService.create(user);
     }
 
-    @RequestMapping(value = "/ums/update/{id})", method = RequestMethod.PUT)
-    public User update(@Valid @PathVariable String id, @RequestBody User user) {
-
-        Optional<User> updatedUser = userService.update(user);
-
-        if (updatedUser.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-
-        }
-        return updatedUser.get();
+    @PostMapping("/ums/update")
+    public User update(@RequestBody UpdateCommand updateCmd, HttpServletRequest request) {
+        User user= new User(updateCmd.getNome(), updateCmd.getCognome(), updateCmd.getEmail(), updateCmd.getPassword());
+        return userService.update(user, request.getHeader("Authorization"));
     }
 
     @PostMapping("/ums/delete")

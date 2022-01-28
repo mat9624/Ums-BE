@@ -2,10 +2,12 @@ package com.example.ums.model;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Entity;
 import java.util.Objects;
 @AllArgsConstructor
+@Document("users")
 public class User {
     @Id
     private String id;

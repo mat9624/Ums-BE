@@ -50,7 +50,7 @@ public class UserServiceDB implements UserServiceInterface {
                 return users;
             } else throw new UmsException(HttpStatus.NOT_FOUND, "password errata");
         } catch (Exception e) {
-            throw new UmsException(HttpStatus.NOT_FOUND, "fottiti");
+            throw new UmsException(HttpStatus.NOT_FOUND, "L'utente non esiste");
         }
     }
 
@@ -66,19 +66,26 @@ public class UserServiceDB implements UserServiceInterface {
     }
 
     @Override
-    public Optional<User> update(User user) {
+    public User update(User user, String token) {
         //FIXME l'entità del db non viene resa persistente
-        Optional<User> foundUser = userRepo.findById(user.getId());
+        try {
+            List<User> users=userRepo.findByEmail(user.getEmail());
+            User updatedUser=users.get(0);
+            updatedUser.setName(user.getName());
+            updatedUser.setSurname(user.getSurname());
+            updatedUser.setEmail(user.getEmail());
+            updatedUser.setPassword(user.getPassword());
+            updatedUser.setToken(token);
+            cacheToken.update(updatedUser,token);
+            userRepo.deleteById(users.get(0).getId());
+            userRepo.insert(users.get(0));
+            return users.get(0);
 
-        if (foundUser.isEmpty()) {
-            return Optional.empty();
+        }catch (Exception e){
+            throw new UmsException(HttpStatus.NOT_FOUND, "L'utente non esiste");
         }
 
-        foundUser.get().setName(user.getName());
-        foundUser.get().setSurname(user.getSurname());
-        foundUser.get().setEmail(user.getEmail());
 
-        return foundUser;
     }
 
     @Override

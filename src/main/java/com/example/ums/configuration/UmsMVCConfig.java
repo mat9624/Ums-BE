@@ -13,6 +13,6 @@ public class UmsMVCConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(umsInterceptor).addPathPatterns("/ums/delete");
+        registry.addInterceptor(umsInterceptor).addPathPatterns("/ums/delete","/ums/update");
     }
 }

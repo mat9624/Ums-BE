@@ -15,7 +15,7 @@ public interface UserServiceInterface {
 
     User create(User user);
 
-    Optional<User> update(User user);
+    User update(User user, String token);
 
     Boolean delete(String id);
 
