@@ -1,0 +1,7 @@
+debug: 'true'
+spring:
+  data:
+    mongodb:
+      database: Ums
+      port: '27017'
+      host: localhost
