@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,10 +26,14 @@ public class UserServiceTest {
     private IUserRepository iUserRepository;
     @InjectMocks
     private UserServiceImpl userService;
+    @Autowired
+    PasswordEncoder pw;
+
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
     }
+
 
     @Test
     void getByIdTest() {
@@ -39,7 +45,17 @@ public class UserServiceTest {
 
     @Test
     void getUserTest(){
-
+        List<User> users = new ArrayList<>();
+        User user = new User();
+        user.setEmail("fabio@gmail.com");
+        String password="Fabio";
+        String passwordCripted = pw.encode(password);
+        user.setPassword(passwordCripted);
+        user.setName("Fabio");
+        user.setSurname("Longo");
+        users.add(user);
+        Mockito.when(iUserRepository.findByEmail(Mockito.any())).thenReturn(users);
+        assertNotNull(userService.getUser(user.getEmail(),user.getPassword()));
     }
 
 
