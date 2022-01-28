@@ -1,16 +1,13 @@
 package com.example.pixeltek.REST.service;
 import com.example.pixeltek.DAO.repository.IUserRepository;
 import com.example.pixeltek.DTO.model.User;
-import com.example.pixeltek.REST.service.cache.CacheToken;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.util.ArrayList;
@@ -26,8 +23,8 @@ public class UserServiceTest {
     private IUserRepository iUserRepository;
     @InjectMocks
     private UserServiceImpl userService;
-    @Autowired
-    PasswordEncoder pw;
+
+
 
     @BeforeEach
     void init() {
@@ -49,13 +46,15 @@ public class UserServiceTest {
         User user = new User();
         user.setEmail("fabio@gmail.com");
         String password="Fabio";
+        BCryptPasswordEncoder pw = new BCryptPasswordEncoder();
         String passwordCripted = pw.encode(password);
         user.setPassword(passwordCripted);
         user.setName("Fabio");
         user.setSurname("Longo");
         users.add(user);
         Mockito.when(iUserRepository.findByEmail(Mockito.any())).thenReturn(users);
-        assertNotNull(userService.getUser(user.getEmail(),user.getPassword()));
+        assertNotNull(userService.getUser(user.getEmail(),password));
+        assertNotNull(null);
     }
 
 
