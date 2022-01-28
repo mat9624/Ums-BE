@@ -1,6 +1,5 @@
 package com.example.pixeltek.REST.configuration;
 
-import com.example.pixeltek.REST.service.interceptor.UmsInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

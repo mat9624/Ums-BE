@@ -1,9 +1,10 @@
 package com.example.pixeltek.REST.service;
 
-import com.example.pixeltek.DAO.repository.IUserRepository;
+import com.example.pixeltek.DAO.repository.UserRepository;
 import com.example.pixeltek.DTO.dto.UserDTO;
 import com.example.pixeltek.DTO.model.User;
-import com.example.pixeltek.REST.service.cache.CacheToken;
+import com.example.pixeltek.REST.configuration.CacheToken;
+import com.example.pixeltek.REST.exception.UmsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private IUserRepository userRepositoryI;
+    private UserRepository userRepositoryI;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -34,9 +35,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUser(String email, String password) throws UmsException {
+    public List<User> login(String email, String password) throws UmsException {
         try {
-
             List<User> users = userRepositoryI.findByEmail(email);
             UUID uuid = UUID.randomUUID();
             String token = uuid.toString();
@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
             if (isPasswordMatches) {
                 userRepositoryI.save(users.get(0));
                 cacheToken.insert(users.get(0), token);
-
                 return users;
             } else throw new UmsException(HttpStatus.NOT_FOUND, "password errata");
         } catch (Exception e) {
@@ -67,15 +66,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> update(User user) {
         Optional<User> foundUser = userRepositoryI.findById(user.getId());
-
         if (foundUser.isEmpty()) {
             return Optional.empty();
         }
-
         foundUser.get().setName(user.getName());
         foundUser.get().setSurname(user.getSurname());
         foundUser.get().setEmail(user.getEmail());
-
         return foundUser;
     }
 
@@ -84,7 +80,6 @@ public class UserServiceImpl implements UserService {
         List<User> foundUser = userRepositoryI.findByEmail(email);
         if (foundUser.isEmpty()) {
             return false;
-
         }
         userRepositoryI.delete(foundUser.get(0));
         return true;
@@ -104,6 +99,5 @@ public class UserServiceImpl implements UserService {
     public Boolean checkAuth(String auth) {
         return cacheToken.tokenFound(auth);
     }
-
 
 }

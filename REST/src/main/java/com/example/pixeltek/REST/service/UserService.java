@@ -19,7 +19,7 @@ public interface UserService {
 
     Boolean delete(String id);
 
-    List<User> getUser(String email, String password);
+    List<User> login(String email, String password);
 
     UserDTO convertToDTO(User u);
 }

@@ -1,4 +1,4 @@
-package com.example.pixeltek.REST.service.interceptor;
+package com.example.pixeltek.REST.configuration;
 
 import com.example.pixeltek.REST.UmsApplication;
 import com.example.pixeltek.REST.service.UserServiceImpl;
@@ -25,7 +25,7 @@ public class UmsInterceptor implements HandlerInterceptor {
         try {
             String auth = request.getHeader("authorization");
             requestValidation = userServiceImpl.checkAuth(auth);
-            test.runGC();   // avvio test memoria
+//            test.runGC();   // avvio test memoria
             System.out.println(System.nanoTime() / 1000000);  // test velocità
             if (!requestValidation) {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());

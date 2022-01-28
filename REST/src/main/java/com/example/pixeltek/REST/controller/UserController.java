@@ -22,22 +22,17 @@ public class UserController {
     UserController() {
     }
 
-
     @RequestMapping("/ums")
     public Iterable<User> getAll(){
-
         return userService.getAll();
-
     }
 
     @RequestMapping("/ums/{id}")
     public User getById(@PathVariable String id){
         Optional<User> foundUser= userService.getById(id);
-
         if(foundUser.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-
         return foundUser.get();
     }
 
@@ -48,21 +43,16 @@ public class UserController {
 
     @RequestMapping(value="/ums/update/{id})", method= RequestMethod.PUT)
     public User update(@Valid @PathVariable String id,@RequestBody User user){
-
         Optional<User> updatedUser= userService.update(user);
-
         if(updatedUser.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
-
         }
         return updatedUser.get();
     }
 
     @RequestMapping(value="/ums/delete/{email}", method=RequestMethod.DELETE)
     public void delete(@PathVariable String email){
-
         boolean isDeleted=userService.delete(email);
-
         if(!isDeleted){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
         }
@@ -73,9 +63,7 @@ public class UserController {
         String[] creds= cred.split("-");
         String email=creds[0];
         String password=creds[1];
-
-        return userService.getUser(email,password);
+        return userService.login(email,password);
     }
-
 }
 
