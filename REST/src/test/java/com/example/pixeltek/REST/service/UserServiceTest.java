@@ -24,6 +24,8 @@ public class UserServiceTest {
     @InjectMocks
     private UserServiceImpl userService;
 
+    @Mock
+    BCryptPasswordEncoder pw = new BCryptPasswordEncoder();
 
 
     @BeforeEach
