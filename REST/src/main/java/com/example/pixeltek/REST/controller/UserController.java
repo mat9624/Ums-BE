@@ -1,5 +1,7 @@
 package com.example.pixeltek.REST.controller;
 
+import com.example.pixeltek.DTO.dto.UserDTO;
+import com.example.pixeltek.DTO.mapper.UserMapper;
 import com.example.pixeltek.DTO.model.User;
 import com.example.pixeltek.REST.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 @Consumes()
 public class UserController {
+
+    private UserMapper userMapper;
     @Autowired
     private UserService userService;
 
@@ -28,12 +32,13 @@ public class UserController {
     }
 
     @RequestMapping("/ums/{id}")
-    public User getById(@PathVariable String id){
+    public UserDTO getById(@PathVariable String id){
         Optional<User> foundUser= userService.getById(id);
         if(foundUser.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-        return foundUser.get();
+
+        return userMapper.toDTO(foundUser.get());
     }
 
     @RequestMapping(value="/ums/create", method = RequestMethod.POST)
@@ -42,12 +47,12 @@ public class UserController {
     }
 
     @RequestMapping(value="/ums/update/{id})", method= RequestMethod.PUT)
-    public User update(@Valid @PathVariable String id,@RequestBody User user){
+    public UserDTO update(@Valid @PathVariable String id,@RequestBody User user){
         Optional<User> updatedUser= userService.update(user);
         if(updatedUser.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
         }
-        return updatedUser.get();
+        return userMapper.toDTO(updatedUser.get());
     }
 
     @RequestMapping(value="/ums/delete/{email}", method=RequestMethod.DELETE)
