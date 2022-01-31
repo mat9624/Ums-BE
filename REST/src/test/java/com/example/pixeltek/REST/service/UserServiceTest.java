@@ -39,7 +39,6 @@ public class UserServiceTest {
 
     @Test
     void getUserTest(){
-        List<User> users = new ArrayList<>();
         User user = new User();
         user.setEmail("fabio@gmail.com");
         String password="Fabio";
@@ -48,8 +47,7 @@ public class UserServiceTest {
         user.setPassword(passwordCripted);
         user.setName("Fabio");
         user.setSurname("Longo");
-        users.add(user);
-        Mockito.when(iUserRepository.findByEmail(Mockito.any())).thenReturn(users);
+        Mockito.when(iUserRepository.findByEmail(Mockito.any())).thenReturn(Optional.of(user));
         assertNotNull(userService.login(user.getEmail(),password));
         assertNotNull(null);
     }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class CacheToken {
@@ -26,8 +27,8 @@ public class CacheToken {
 
     public Boolean tokenFound(String token) {
         if (!tokens.containsValue(token)) {
-            List<User> tokenFoundDB = userRepo.findByToken(token);
-            return !tokenFoundDB.isEmpty();
+           Optional<User> user = userRepo.findByToken(token);
+           return !user.isEmpty();
         }
         return true;
     }
