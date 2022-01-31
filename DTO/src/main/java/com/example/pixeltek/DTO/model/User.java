@@ -14,6 +14,13 @@ public class User {
     private String password;
     private String token;
 
+    public User(String name, String surname, String email, String password) {
+        this.name=name;
+        this.surname=surname;
+        this.email=email;
+        this.password=password;
+    }
+
 
     public void setToken(String token) {
         this.token = token;

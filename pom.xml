@@ -100,11 +100,10 @@
                 <artifactId>spring-security-core</artifactId>
                 <version>5.6.1</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
             <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>1.4.2.Final</version>
+                <groupId>org.modelmapper</groupId>
+                <artifactId>modelmapper</artifactId>
+                <version>2.4.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

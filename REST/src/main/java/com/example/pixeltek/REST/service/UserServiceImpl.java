@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> login(String email, String password) throws UmsException {
+    public User login(String email, String password) throws UmsException {
         try {
             List<User> users = userRepositoryI.findByEmail(email);
             UUID uuid = UUID.randomUUID();
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
             if (isPasswordMatches) {
                 userRepositoryI.save(users.get(0));
                 cacheToken.insert(users.get(0), token);
-                return users;
+                return users.get(0);
             } else throw new UmsException(HttpStatus.NOT_FOUND, "password errata");
         } catch (Exception e) {
             throw new UmsException(HttpStatus.NOT_FOUND, "fottiti");
@@ -64,15 +64,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> update(User user) {
-        Optional<User> foundUser = userRepositoryI.findById(user.getId());
-        if (foundUser.isEmpty()) {
-            return Optional.empty();
+    public User update(User user, String token) {
+        try {
+            List<User> users=userRepositoryI.findByEmail(user.getEmail());
+            User updatedUser=users.get(0);
+            updatedUser.setName(user.getName());
+            updatedUser.setSurname(user.getSurname());
+            updatedUser.setEmail(user.getEmail());
+            updatedUser.setPassword(user.getPassword());
+            updatedUser.setToken(token);
+            cacheToken.update(updatedUser,token);
+            userRepositoryI.deleteById(users.get(0).getId());
+            userRepositoryI.insert(users.get(0));
+            return users.get(0);
+
+        }catch (Exception e){
+            throw new UmsException(HttpStatus.NOT_FOUND, "L'utente non esiste");
         }
-        foundUser.get().setName(user.getName());
-        foundUser.get().setSurname(user.getSurname());
-        foundUser.get().setEmail(user.getEmail());
-        return foundUser;
+
+
     }
 
     @Override
@@ -85,16 +95,6 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    @Override
-    public UserDTO convertToDTO(User u) {
-        UserDTO uDTO = new UserDTO();
-        uDTO.setId(u.getId());
-        uDTO.setEmail(u.getEmail());
-        uDTO.setPassword(u.getPassword());
-        uDTO.setName(u.getName());
-        uDTO.setSurname(u.getSurname());
-        return uDTO;
-    }
 
     public Boolean checkAuth(String auth) {
         return cacheToken.tokenFound(auth);

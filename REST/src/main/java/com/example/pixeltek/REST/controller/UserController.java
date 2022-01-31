@@ -1,14 +1,19 @@
 package com.example.pixeltek.REST.controller;
 
+import com.example.pixeltek.DTO.command.DeleteCommand;
+import com.example.pixeltek.DTO.command.LoginCommand;
+import com.example.pixeltek.DTO.command.RegisterCommand;
+import com.example.pixeltek.DTO.command.UpdateCommand;
 import com.example.pixeltek.DTO.dto.UserDTO;
-import com.example.pixeltek.DTO.mapper.UserMapper;
 import com.example.pixeltek.DTO.model.User;
 import com.example.pixeltek.REST.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import java.util.List;
@@ -18,57 +23,43 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 @Consumes()
 public class UserController {
-
-    private UserMapper userMapper;
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     private UserService userService;
 
     UserController() {
     }
 
-    @RequestMapping("/ums")
-    public Iterable<User> getAll(){
-        return userService.getAll();
+    @PostMapping("/ums/create")
+    public UserDTO create(@RequestBody RegisterCommand registerCmd) {
+        User user = new User(registerCmd.getName(), registerCmd.getSurname(), registerCmd.getEmail(), registerCmd.getPassword());
+        return toDTO(userService.create(user));
     }
 
-    @RequestMapping("/ums/{id}")
-    public UserDTO getById(@PathVariable String id){
-        Optional<User> foundUser= userService.getById(id);
-        if(foundUser.isEmpty()){
+    @PostMapping("/ums/update")
+    public UserDTO update(@RequestBody UpdateCommand updateCmd, HttpServletRequest request) {
+        User user= new User(updateCmd.getName(), updateCmd.getSurname(), updateCmd.getEmail(), updateCmd.getPassword());
+        return toDTO(userService.update(user, request.getHeader("Authorization")));
+    }
+
+    @PostMapping("/ums/delete")
+    public void delete(@RequestBody DeleteCommand deleteCmd) {
+
+        boolean isDeleted = userService.delete(deleteCmd.getEmail());
+        if (!isDeleted) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-
-        return userMapper.toDTO(foundUser.get());
     }
 
-    @RequestMapping(value="/ums/create", method = RequestMethod.POST)
-    public User create(@Valid @RequestBody User user){
-        return userService.create(user);
+    @PostMapping("/ums/getUser")
+    public UserDTO getUser(@RequestBody LoginCommand loginCmd) {
+        return toDTO(userService.login(loginCmd.getEmail(), loginCmd.getPassword()));
     }
 
-    @RequestMapping(value="/ums/update/{id})", method= RequestMethod.PUT)
-    public UserDTO update(@Valid @PathVariable String id,@RequestBody User user){
-        Optional<User> updatedUser= userService.update(user);
-        if(updatedUser.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
-        }
-        return userMapper.toDTO(updatedUser.get());
-    }
-
-    @RequestMapping(value="/ums/delete/{email}", method=RequestMethod.DELETE)
-    public void delete(@PathVariable String email){
-        boolean isDeleted=userService.delete(email);
-        if(!isDeleted){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found");
-        }
-    }
-
-    @GetMapping("/ums/getUser/{cred}")
-    public List<User> getUser(@PathVariable String cred){
-        String[] creds= cred.split("-");
-        String email=creds[0];
-        String password=creds[1];
-        return userService.login(email,password);
+    private UserDTO toDTO(User user){
+        UserDTO userDTO= modelMapper.map(user,UserDTO.class);
+        return userDTO;
     }
 }
 

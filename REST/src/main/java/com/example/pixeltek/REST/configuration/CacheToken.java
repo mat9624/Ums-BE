@@ -33,4 +33,9 @@ public class CacheToken {
         return true;
     }
 
+    public void update(User user, String token){
+        tokens.replace(user,token);
+
+    }
+
 }

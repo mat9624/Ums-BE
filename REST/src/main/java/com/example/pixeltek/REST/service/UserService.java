@@ -15,11 +15,10 @@ public interface UserService {
 
     User create(User user);
 
-    Optional<User> update(User user);
+    User update(User user, String token);
 
     Boolean delete(String id);
 
-    List<User> login(String email, String password);
+    User login(String email, String password);
 
-    UserDTO convertToDTO(User u);
 }
