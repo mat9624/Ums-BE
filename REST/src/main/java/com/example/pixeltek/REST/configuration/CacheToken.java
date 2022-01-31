@@ -14,7 +14,7 @@ public class CacheToken {
     @Autowired
     UserRepository userRepo;
 
-    private Map<User, String> tokens;
+    private final Map<User, String> tokens;
 
     public CacheToken() {
         tokens = new HashMap<>();
@@ -25,7 +25,6 @@ public class CacheToken {
     }
 
     public Boolean tokenFound(String token) {
-        System.out.println(tokens);
         if (!tokens.containsValue(token)) {
             List<User> tokenFoundDB = userRepo.findByToken(token);
             return !tokenFoundDB.isEmpty();
@@ -33,9 +32,8 @@ public class CacheToken {
         return true;
     }
 
-    public void update(User user, String token){
-        tokens.replace(user,token);
+    public void update(User user, String token) {
+        tokens.replace(user, token);
 
     }
-
 }
