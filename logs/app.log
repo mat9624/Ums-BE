@@ -1,0 +1,40 @@
+2022-02-01 10:56:30,923 INFO com.example.pixeltek.REST.UmsApplication [main] Starting UmsApplication using Java 17.0.2 on Lucky with PID 15592 (C:\Users\fortu\Documents\Ums-BE\REST\target\classes started by fortu in C:\Users\fortu\Documents\Ums-BE)
+2022-02-01 10:56:30,926 DEBUG com.example.pixeltek.REST.UmsApplication [main] Running with Spring Boot v2.6.3, Spring v5.3.14
+2022-02-01 10:56:30,926 INFO com.example.pixeltek.REST.UmsApplication [main] No active profile set, falling back to default profiles: default
+2022-02-01 10:56:33,290 INFO com.example.pixeltek.REST.UmsApplication [main] Started UmsApplication in 2.87 seconds (JVM running for 3.685)
+2022-02-01 10:57:12,331 INFO com.example.pixeltek.REST.UmsApplication [main] Starting UmsApplication using Java 17.0.2 on Lucky with PID 8672 (C:\Users\fortu\Documents\Ums-BE\REST\target\classes started by fortu in C:\Users\fortu\Documents\Ums-BE)
+2022-02-01 10:57:12,336 DEBUG com.example.pixeltek.REST.UmsApplication [main] Running with Spring Boot v2.6.3, Spring v5.3.14
+2022-02-01 10:57:12,336 INFO com.example.pixeltek.REST.UmsApplication [main] No active profile set, falling back to default profiles: default
+2022-02-01 10:57:14,460 INFO com.example.pixeltek.REST.UmsApplication [main] Started UmsApplication in 2.647 seconds (JVM running for 3.725)
+2022-02-01 11:01:08,199 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-1] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:01:08,200 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-1] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:01:08,200 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-1] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:01:10,666 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-3] class com.example.pixeltek.REST.controller.UserController-/getUser-LoginCommand(email=a, password=a) 
+2022-02-01 11:01:10,666 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-3] class com.example.pixeltek.REST.controller.UserController-/getUser-LoginCommand(email=a, password=a) 
+2022-02-01 11:01:11,628 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-5] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:01:11,628 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-5] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:01:11,639 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-5] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:07:22,617 INFO com.example.pixeltek.REST.UmsApplication [main] Starting UmsApplication using Java 17.0.2 on Lucky with PID 8140 (C:\Users\fortu\Documents\Ums-BE\REST\target\classes started by fortu in C:\Users\fortu\Documents\Ums-BE)
+2022-02-01 11:07:22,622 DEBUG com.example.pixeltek.REST.UmsApplication [main] Running with Spring Boot v2.6.3, Spring v5.3.14
+2022-02-01 11:07:22,622 INFO com.example.pixeltek.REST.UmsApplication [main] No active profile set, falling back to default profiles: default
+2022-02-01 11:07:25,030 INFO com.example.pixeltek.REST.UmsApplication [main] Started UmsApplication in 3.01 seconds (JVM running for 3.841)
+2022-02-01 11:08:26,501 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-2] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:08:26,501 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-2] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:08:26,501 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-2] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:08:28,896 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-4] class com.example.pixeltek.REST.controller.UserController-/getUser-LoginCommand(email=a, password=a) 
+2022-02-01 11:08:28,896 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-4] class com.example.pixeltek.REST.controller.UserController-/getUser-LoginCommand(email=a, password=a) 
+2022-02-01 11:08:30,006 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-6] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:08:30,006 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-6] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:08:30,017 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-6] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:11:25,370 INFO com.example.pixeltek.REST.UmsApplication [main] Starting UmsApplication using Java 17.0.2 on Lucky with PID 5224 (C:\Users\fortu\Documents\Ums-BE\REST\target\classes started by fortu in C:\Users\fortu\Documents\Ums-BE)
+2022-02-01 11:11:25,372 DEBUG com.example.pixeltek.REST.UmsApplication [main] Running with Spring Boot v2.6.3, Spring v5.3.14
+2022-02-01 11:11:25,373 INFO com.example.pixeltek.REST.UmsApplication [main] No active profile set, falling back to default profiles: default
+2022-02-01 11:11:27,956 INFO com.example.pixeltek.REST.UmsApplication [main] Started UmsApplication in 3.199 seconds (JVM running for 4.223)
+2022-02-01 11:11:49,774 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-2] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:11:49,774 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-2] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:11:49,775 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-2] class com.example.pixeltek.REST.controller.UserController-/create-a 
+2022-02-01 11:11:52,479 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-4] class com.example.pixeltek.REST.controller.UserController-/getUser-LoginCommand(email=a, password=a) 
+2022-02-01 11:11:52,479 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-4] class com.example.pixeltek.REST.controller.UserController-/getUser-LoginCommand(email=a, password=a) 
+2022-02-01 11:11:53,654 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-6] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:11:53,654 DEBUG com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-6] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
+2022-02-01 11:11:53,664 INFO com.example.pixeltek.REST.controller.UserController [http-nio-8080-exec-6] class com.example.pixeltek.REST.controller.UserController-/delete-DeleteCommand(email=a) 
