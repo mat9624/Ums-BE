@@ -1,6 +1,7 @@
 package com.example.pixeltek.DTO.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ public class User {
     private String id;
     private String name;
     private String surname;
+    @Indexed(unique = true)
     private String email;
     private String password;
     private String token;

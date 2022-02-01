@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Iterable<User> getAll();
-
     Optional<User> getById(String id);
 
     User create(User user);
