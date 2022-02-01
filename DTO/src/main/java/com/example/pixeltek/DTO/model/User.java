@@ -1,17 +1,19 @@
 package com.example.pixeltek.DTO.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 
+@Table(name = "Users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
     private String name;
     private String surname;
-    @Indexed(unique = true)
     private String email;
     private String password;
     private String token;

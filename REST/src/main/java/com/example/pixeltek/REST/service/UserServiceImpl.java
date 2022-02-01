@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
             updatedUser.setToken(token);
             cacheToken.update(updatedUser,token);
             userRepositoryI.deleteById(users.get().getId());
-            userRepositoryI.insert(users.get());
+            userRepositoryI.save(users.get());
             return users.get();
 
         }catch (Exception e){
