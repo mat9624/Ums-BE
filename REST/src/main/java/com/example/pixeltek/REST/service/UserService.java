@@ -1,9 +1,7 @@
 package com.example.pixeltek.REST.service;
 
-import com.example.pixeltek.DTO.dto.UserDTO;
 import com.example.pixeltek.DTO.model.User;
 
-import java.util.List;
 import java.util.Optional;
 
 

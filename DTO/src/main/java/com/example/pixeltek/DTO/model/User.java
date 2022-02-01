@@ -1,21 +1,26 @@
 package com.example.pixeltek.DTO.model;
 
 
-import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.*;
 import java.util.Objects;
 
-
+@Entity
 @Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
+    @Column(name="name",nullable = false)
     private String name;
+    @Column(name="surname", nullable = false)
     private String surname;
+    @Column(name="email", nullable = false)
     private String email;
+    @Column(name="password",nullable = false)
     private String password;
+    @Column(name="token")
     private String token;
 
     public User(String name, String surname, String email, String password) {
@@ -40,7 +45,7 @@ public class User {
     public User() {
     }
 
-    public User(String id, String name, String surname, String email, String password) {
+    public User(Long id, String name, String surname, String email, String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -48,11 +53,11 @@ public class User {
         this.password = password;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

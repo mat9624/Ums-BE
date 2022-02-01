@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 @Component
 public class CacheToken {
     @Autowired
-    UserRepository userRepo;
+    UserRepository userRepository;
 
     private final Map<User, String> tokens;
 
@@ -27,7 +25,7 @@ public class CacheToken {
 
     public Boolean tokenFound(String token) {
         if (!tokens.containsValue(token)) {
-           Optional<User> user = userRepo.findByToken(token);
+           Optional<User> user = userRepository.findByToken(token);
            return !user.isEmpty();
         }
         return true;
